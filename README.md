@@ -38,7 +38,7 @@
 <!-- ═══════════════════════ UNIT 3 — THE BUILD ═══════════════════════ -->
 
 ## What This Does
-
+This project allows user to inquire on clothes from a set of item listings of different categories, sizes, and styles. The listing includes tops, bottoms, outerwear, and shoes providing affordable list of clothes in the listings. Apart from the listings this project provides ouftfit suggestions and examples of fits that combine well together. 
 <!-- Three or four sentences: what a user asks for, and what they get back. -->
 
 
