@@ -59,24 +59,24 @@ This project allows user to inquire on clothes from a set of item listings of di
 
 ### `search_listings`
 
-- **What it does:**
-- **Inputs:** <!-- name and type each: `max_price` (float), not "a price" -->
-- **Returns:**
-- **When it has nothing:**
+- **What it does:** Searches the `listings.json` file for clothings and accessories, so the most relevant items are provided.
+- **Inputs:** The `description` (str), `size` (str), `max_price` (float)
+- **Returns:** A `matched` (list[dicts]):: This is a reversed, sorted by score, list of dicts each with `id` (str), `score` (float), `price`(float) (inclusive or not), and a dictionary called `listing`. The `listing` dictionary has these fields: `id` (str), `title` (str), `description` (str), `category` (str), `style_tags` (list(str)), `size` (str), `condition` (str), `price` (float), `colors` (list(str)), `brand` (str), and `platform` (str).
+- **When it has nothing:** Returns the first result (most relevant) searched listings that match the description then run `suggest_outfit` with it, otherwise, returns an error string in `session["error"]` when the tool returns an empty list `[]`.
 
 ### `suggest_outfit`
 
-- **What it does:**
-- **Inputs:**
-- **Returns:**
-- **When it has nothing:**
+- **What it does:** When given a thrifted item and the user's wardrobe, suggest one or two outfits.
+- **Inputs:** A `new_item` a listing dict - the item the user is considering, `wardrobe` a wardrobe dict with an `items` key holding the list of items. **It may be empty** . The `new_item` has fields each with an `id` (str), `name` (str), `category` (str), `colors` (list(str)), `style_tags` (list(str)), and `notes` (str or null). The `wardrobe` has these same fields but inside the key `items` array which has a list of dicts.
+- **Returns:** A `response` str of the generated suggestion of 1 or 2 outfits to combine `new_item` (dict) with other items from the user's existing `wardrobe` (dict) which are all pieces in the outfit areexplicitly mentioned. 
+- **When it has nothing:** Returns a generated suggestion str, like a personal fashion stylist giving helpful and clear suggestions of at least 2 outfits, otherwise, if the parameters are empty then errors that list is empty and needs to be filled with content from `search_listings`. If generated suggestion fails then returns str of generic advice in `agent.py`'s `session["outfit_suggestion"]` for the `new_item` styling to be paired with neutral basics and complementary layers. 
 
 ### `create_fit_card`
 
-- **What it does:**
-- **Inputs:**
-- **Returns:**
-- **When it has nothing:**
+- **What it does:** Writes a short caption about what someone would actually post on social media about what they found while thrifting.
+- **Inputs:** A `outfit` str of the outfit suggestion from `suggest_outfit` and `new_item` the dict of the item they found. The `new_item` dict has these fields: `id` (str), `title` (str), `description` (str), `category` (str), `colors (str)`, `style_tags` (str), and `notes` (str).
+- **Returns:** Returns a `response` str of generated captions for the outfit in 2-4 sentences, with the item name, price, and platform being specifically mentioned. The generated str includes details about the vibe that sounds like a real person sharing a thrift haul post on social media, not a store ad.
+- **When it has nothing:** Returns a generated caption str in session["fit_card"] otherwise, if parameters are empty then errors that they need to be filled with content from `suggest_outfits`. If generated caption fails and is empty, it returns a generic caption with the item `title` (str), `price` (str), `platform` (str), and a short description.
 
 ---
 
