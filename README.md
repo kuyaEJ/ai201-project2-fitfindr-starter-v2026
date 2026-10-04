@@ -123,16 +123,21 @@ $ python app.py ask '...'
 $ python -c "from tools import search_listings; print(search_listings('graphic tee', max_price=30))"
 
 ```
+[{'id': 'lst_002', 'score': 10.92, 'price': 'price is inclusive to 30', 'listing':{'id': 'lst_002', 'title': 'Y2K Baby Tee — Butterfly Print', 'description': 'Supercute early 2000s baby tee with butterfly graphic. Fitted crop length. Tag says medium but fits like a small.', 'category': 'tops', 'style_tags': ['y2k', 'vintage', 'graphic tee', 'cottagecore'], 'size': 'S/M', 'condition': 'excellent', 'price': 18.0, 'colors': ['white', 'pink', 'purple'], 'brand': None, 'platform': 'depop'}}, {'id': 'lst_006', 'score': 8.67, 'price': 'price is inclusive to 30', 'listing': {'id': 'lst_006', 'title': 'Graphic Tee — 2003 Tour Bootleg Style', 'description': 'Vintage-style bootleg tee with faded graphic. Slightly boxy fit. 100% cotton, soft and worn-in.', 'category': 'tops', 'style_tags': ['graphic tee', 'vintage', 'grunge', 'streetwear', 'band tee'], 'size': 'L', 'condition': 'good', 'price': 24.0, 'colors': ['black'], 'brand': None, 'platform': 'depop'}}, {'id': 'lst_033', 'score': 7.99,'price': 'price is inclusive to 30', 'listing': {'id': 'lst_033', 'title': 'Vintage Band Tee — Faded Grey', 'description': 'Faded grey band-style tee with distressedgraphic. Crew neck. Fits boxy. Well-loved but no holes or major damage.', 'category': 'tops', 'style_tags': ['vintage', 'grunge', 'band tee', 'graphic tee', 'streetwear'], 'size': 'L', 'condition': 'fair', 'price': 19.0, 'colors': ['grey', 'charcoal'], 'brand': None, 'platform': 'depop'}}, {'id': 'lst_015', 'score': 4.3, 'price':'price is inclusive to 30', 'listing': {'id': 'lst_015', 'title': 'Vintage GraphicHoodie — Faded Black', 'description': 'Faded black pullover hoodie with barely-visible vintage graphic on the chest. Cozy interior. Some pilling but adds to the worn-in look.', 'category': 'tops', 'style_tags': ['vintage', 'grunge', 'graphic', 'streetwear'], 'size': 'L', 'condition': 'fair', 'price': 26.0, 'colors': ['black', 'charcoal'], 'brand': None, 'platform': 'depop'}}, {'id': 'lst_017', 'score': 4.04, 'price': 'price is inclusive to 30', 'listing': {'id': 'lst_017', 'title': 'Mesh Long-Sleeve Top — Black', 'description': 'Sheer black mesh long-sleeve. Great for layering under a graphic tee or over a bralette. Stretchy material, fits true to size.','category': 'tops', 'style_tags': ['y2k', 'grunge', 'goth', 'layering'], 'size': 'S/M', 'condition': 'excellent', 'price': 15.0, 'colors': ['black'], 'brand': None, 'platform': 'depop'}}, {'id': 'lst_030', 'score': 3.0, 'price': 'price is inclusiveto 30', 'listing': {'id': 'lst_030', 'title': 'Vintage Knit Vest — Argyle Brown/Cream', 'description': 'Classic argyle knit vest in brown and cream. Fits medium. V-neck. Ideal for the dark academia or preppy vintage aesthetic.', 'category': 'tops','style_tags': ['vintage', 'preppy', 'knitwear', 'dark academia', 'earth tones'], 'size': 'M', 'condition': 'good', 'price': 25.0, 'colors': ['brown', 'cream', 'tan'], 'brand': None, 'platform': 'thredUp'}}, {'id': 'lst_034', 'score': 3.0, 'price': 'price is inclusive to 30', 'listing': {'id': 'lst_034', 'title': 'Bucket Hat — Reversible, Brown Plaid', 'description': 'Reversible bucket hat — plaid on one side, solid tan on the other. Unstructured brim. One size fits most.', 'category': 'accessories', 'style_tags': ['90s', 'streetwear', 'vintage', 'accessories'], 'size': 'OneSize', 'condition': 'excellent', 'price': 14.0, 'colors': ['brown', 'tan', 'plaid'], 'brand': None, 'platform': 'thredUp'}}, {'id': 'lst_038', 'score': 3.0, 'price':'price is inclusive to 30', 'listing': {'id': 'lst_038', 'title': 'Denim Vest — Medium Wash, Studded', 'description': 'Denim vest with silver stud detailing along the collar and pockets. Classic rock-inspired customization. Fits like a medium.', 'category': 'outerwear', 'style_tags': ['grunge', 'vintage', 'denim', 'customized', 'rock'], 'size': 'M', 'condition': 'good', 'price': 27.0, 'colors': ['medium blue'],'brand': None, 'platform': 'depop'}}, {'id': 'lst_011', 'score': 1.99, 'price': 'price is inclusive to 30', 'listing': {'id': 'lst_011', 'title': 'Low-Rise Cargo Pants — Khaki', 'description': 'Y2K era low-rise cargo pants. Lots of pockets. Khaki color, slightly distressed at the hems. Great for layering with a long tee.', 'category': 'bottoms', 'style_tags': ['y2k', 'cargo', '2000s', 'streetwear'], 'size': 'W29', 'condition': 'fair', 'price': 27.0, 'colors': ['khaki', 'tan'], 'brand': None, 'platform': 'poshmark'}}]
+```
+$ python -c "from tools import suggest_outfit; from utils.data_loader import get_example_wardrobe, load_listings; print(suggest_outfit(load_listings()[0], get_example_wardrobe()))"
 
 ```
-$ python -c "from tools import suggest_outfit; ..."
+**Outfit 1: Casual Streetwear**
+Pair the new Vintage Levi's 501 Jeans (New Item) with the white ribbed tank top (w_003), layered under the oversized grey crewneck sweatshirt (w_004). Finish the look with chunky white sneakers (w_007) and the black crossbody bag (w_010).
+
+**Outfit 2: Edge & Denim**
+Combine the Vintage Levi's 501 Jeans (New Item) with the black cropped zip hoodie (w_005) and the vintage black denim jacket (w_006) for a double-denim moment. Ground the outfit with black combat boots (w_008) and the brown leather belt (w_009).
+```
+$ python -c "from tools import create_fit_card; from utils.data_loader import load_listings; print(create_fit_card('jeans and white sneakers', load_listings()[0]))"
 
 ```
-
-```
-$ python -c "from tools import create_fit_card; ..."
-
-```
+Just scored these Vintage Levi's 501 Jeans in a sick medium wash on depop for only$38.0. The vintage denim streetwear vibe is unmatched and the fit is genuinely chefs kiss. Throw them on with some fresh white sneakers and an oversized tee for the ultimate lazy-day fit. 🤌✨
 
 ---
 
@@ -147,15 +152,15 @@ $ python -c "from tools import create_fit_card; ..."
 
 **Moment 1**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* I asked Gemini to help me think of how to score keywords and gave it my `search_listings` tool as descriptions and my `app.py` fields in `listings.json` as references.
+- *What came back:* It suggested for me to use a industry standard Bm25 system where the listings are scored higher based on things that are rarer.
+- *What I changed:* It gave a generic scoring system whose average scores were too high, so I had certain keywords get higher scores in order for the scores to not be too high. Additionally, I added a size scoring addition as well. If the item size matches exactly with `max_size` it will earn 3 full pts, while inclusive sizes get 1.5 pts, and the rest gets 0 pts. I wanted there to be more room for error on sizes so I suggest it to provide a score of  0.75pts when the size is 2 sizes smaller or larger.
 
 **Moment 2**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* I asked Gemini to attack my acceptance criteria that I drafted.
+- *What came back:* It provided edge cases and a perspective on testing indicating how there can be errors that happens such as false positives, LLM hallucinations, and empty matches in the `search_listings`, sessions getting modified after being recieved by other tools, and more. It gave me session["error"] example that helped me write errors for empty search results.
+- *What I changed:* As a result I added a check to ensure the right instance is being passed, and the item searches the correct field such as the `listing` field since it has the metadata of the item inside. I asserted the objects identity as well to ensure the fields don't change after being passed to the session before being sent to the next tool `suggest_outfit`.
 
 <!-- ═══════════════════════ UNIT 4 — THE TEST ═══════════════════════
 
