@@ -17,6 +17,7 @@ Under each one, write a sentence or two on **why that target** and not a stricte
 Given a query that matches at least one listing, the agent completes all three tool calls and returns a fit card — in at least 4 of 5 tries.
 
 **Why this target:**
+
 I am confident in my keyword matchings since all keywords in the listings dicts fields for `description`, `title`, `style_tags`, and `colors`, are scanned and scored with BM25 + IDF weights. Additionally, I have a relevance gate for item sizes with an impacted smaller score for partial matches or misses. However, should `SEARCH_RESULT_LIMIT` in `config.py` be too low then there may be a case where it might score wrong. When there's less than 3 keywords in the provided search some items can be scored low by mistake. Additionally, the agent may terminate at a tool if the query price and query size is too low as well.
 <!-- Why 4 of 5 and not 5 of 5? Something about your search, probably —
      "my search is a plain keyword match and some phrasings will miss" is a real answer. -->
@@ -29,6 +30,7 @@ Given a query that matches no listings, the agent stops before calling
 `suggest_outfit` and returns a message naming what to change — 5 of 5 tries.
 
 **Why this target:**
+
 The file `agent.py` has a `run_agent` method that guards and ensures listings is not empty and returns the session so it doesn't proceed. The tool for `suggest_outfit` will never be given an empty listing unless it the hardware malfunctions in runtime which is a very small probability. Additionally, it's not possible for `matches.sort` to not be equal to None unless someone manually changes it internally meaning matches will almost always have at least 1 item. The only way for the list to be empty is when the price, size, or descriptions for the item is way too small and not mentioned anywhere in the data and in those cases `app.py` and `agent.py` already handle it.
 <!-- Why is 5 of 5 reasonable here when criterion 1 isn't? What's different about this path? -->
 
