@@ -277,18 +277,18 @@ def search_listings(
     listings = load_listings()
     if not listings: return []
 
-    if not description:
-        print(f"\nNo matching description in string"
-              f"\nPlease enter a valid description i.e. 'white striped pants 30W under $40'\n")
-        return []
-    if not size:
-        print(f"No size matching in string"
-              f"\nPlease enter a valid size i.e. 'small shirt'\n")
-        return []
-    if not max_price:
-        print(f"\n0 is not a valid price range"
-              f"\nPlease enter a valid price range i.e under $30.\n")
-        return []
+    # if not description:
+    #     print(f"\nNo matching description in string"
+    #           f"\nPlease enter a valid description i.e. 'white striped pants 30W under $40'\n")
+    #     return []
+    # if not size:
+    #     print(f"No size matching in string"
+    #           f"\nPlease enter a valid size i.e. 'small shirt'\n")
+    #     return []
+    # if not max_price:
+    #     print(f"\n0 is not a valid price range"
+    #           f"\nPlease enter a valid price range i.e under $30.\n")
+    #     return []
 
     # B. Calculate Text Relevance Scores using BM25 Engine
     engine = BM25SearchEngine(listings)

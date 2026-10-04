@@ -113,17 +113,34 @@ This project allows user to inquire on clothes from a set of item listings of di
 **One full query**
 
 ```
-$ python app.py ask '...'
+$ python app.py ask 'striped white pants'
 
 ```
+```
+(.venv) EJ@MacBookPro AI201-Unit3-Project % py app.py ask "striped white pants"
 
+  Found:    Low-Rise Cargo Pants — Khaki — $27.0 on poshmark
+
+  Outfit:   **Outfit 1 (Y2K Streetwear):** Pair the new Low-Rise Cargo Pants (Khaki) with the white ribbed tank top (w_003), layered under the black cropped zip hoodie (w_005). Finish the look with chunky white sneakers (w_007) and the black crossbody bag (w_10).
+
+**Outfit 2 (Edgy Grunge):** Combine the new Low-Rise Cargo Pants (Khaki) with the oversized grey crewneck sweatshirt (w_004) and black combat boots (w_008). Add the vintage black denim jacket (w_006) for extra layering.
+
+  Fit card: Just scored these Low-Rise Cargo Pants — Khaki on Poshmark for only $27.0! Total Y2K streetwear win. Pair them with a white ribbed tank, black cropped hoodie, and chunky sneakers for the ultimate 2000s fit. ✨
+
+2 model calls this session, 893 prompt + 198 output tokens
+```
 **The three tools, tested one at a time**
+
+**search_listings**
 
 ```
 $ python -c "from tools import search_listings; print(search_listings('graphic tee', max_price=30))"
 
 ```
 [{'id': 'lst_002', 'score': 10.92, 'price': 'price is inclusive to 30', 'listing':{'id': 'lst_002', 'title': 'Y2K Baby Tee — Butterfly Print', 'description': 'Supercute early 2000s baby tee with butterfly graphic. Fitted crop length. Tag says medium but fits like a small.', 'category': 'tops', 'style_tags': ['y2k', 'vintage', 'graphic tee', 'cottagecore'], 'size': 'S/M', 'condition': 'excellent', 'price': 18.0, 'colors': ['white', 'pink', 'purple'], 'brand': None, 'platform': 'depop'}}, {'id': 'lst_006', 'score': 8.67, 'price': 'price is inclusive to 30', 'listing': {'id': 'lst_006', 'title': 'Graphic Tee — 2003 Tour Bootleg Style', 'description': 'Vintage-style bootleg tee with faded graphic. Slightly boxy fit. 100% cotton, soft and worn-in.', 'category': 'tops', 'style_tags': ['graphic tee', 'vintage', 'grunge', 'streetwear', 'band tee'], 'size': 'L', 'condition': 'good', 'price': 24.0, 'colors': ['black'], 'brand': None, 'platform': 'depop'}}, {'id': 'lst_033', 'score': 7.99,'price': 'price is inclusive to 30', 'listing': {'id': 'lst_033', 'title': 'Vintage Band Tee — Faded Grey', 'description': 'Faded grey band-style tee with distressedgraphic. Crew neck. Fits boxy. Well-loved but no holes or major damage.', 'category': 'tops', 'style_tags': ['vintage', 'grunge', 'band tee', 'graphic tee', 'streetwear'], 'size': 'L', 'condition': 'fair', 'price': 19.0, 'colors': ['grey', 'charcoal'], 'brand': None, 'platform': 'depop'}}, {'id': 'lst_015', 'score': 4.3, 'price':'price is inclusive to 30', 'listing': {'id': 'lst_015', 'title': 'Vintage GraphicHoodie — Faded Black', 'description': 'Faded black pullover hoodie with barely-visible vintage graphic on the chest. Cozy interior. Some pilling but adds to the worn-in look.', 'category': 'tops', 'style_tags': ['vintage', 'grunge', 'graphic', 'streetwear'], 'size': 'L', 'condition': 'fair', 'price': 26.0, 'colors': ['black', 'charcoal'], 'brand': None, 'platform': 'depop'}}, {'id': 'lst_017', 'score': 4.04, 'price': 'price is inclusive to 30', 'listing': {'id': 'lst_017', 'title': 'Mesh Long-Sleeve Top — Black', 'description': 'Sheer black mesh long-sleeve. Great for layering under a graphic tee or over a bralette. Stretchy material, fits true to size.','category': 'tops', 'style_tags': ['y2k', 'grunge', 'goth', 'layering'], 'size': 'S/M', 'condition': 'excellent', 'price': 15.0, 'colors': ['black'], 'brand': None, 'platform': 'depop'}}, {'id': 'lst_030', 'score': 3.0, 'price': 'price is inclusiveto 30', 'listing': {'id': 'lst_030', 'title': 'Vintage Knit Vest — Argyle Brown/Cream', 'description': 'Classic argyle knit vest in brown and cream. Fits medium. V-neck. Ideal for the dark academia or preppy vintage aesthetic.', 'category': 'tops','style_tags': ['vintage', 'preppy', 'knitwear', 'dark academia', 'earth tones'], 'size': 'M', 'condition': 'good', 'price': 25.0, 'colors': ['brown', 'cream', 'tan'], 'brand': None, 'platform': 'thredUp'}}, {'id': 'lst_034', 'score': 3.0, 'price': 'price is inclusive to 30', 'listing': {'id': 'lst_034', 'title': 'Bucket Hat — Reversible, Brown Plaid', 'description': 'Reversible bucket hat — plaid on one side, solid tan on the other. Unstructured brim. One size fits most.', 'category': 'accessories', 'style_tags': ['90s', 'streetwear', 'vintage', 'accessories'], 'size': 'OneSize', 'condition': 'excellent', 'price': 14.0, 'colors': ['brown', 'tan', 'plaid'], 'brand': None, 'platform': 'thredUp'}}, {'id': 'lst_038', 'score': 3.0, 'price':'price is inclusive to 30', 'listing': {'id': 'lst_038', 'title': 'Denim Vest — Medium Wash, Studded', 'description': 'Denim vest with silver stud detailing along the collar and pockets. Classic rock-inspired customization. Fits like a medium.', 'category': 'outerwear', 'style_tags': ['grunge', 'vintage', 'denim', 'customized', 'rock'], 'size': 'M', 'condition': 'good', 'price': 27.0, 'colors': ['medium blue'],'brand': None, 'platform': 'depop'}}, {'id': 'lst_011', 'score': 1.99, 'price': 'price is inclusive to 30', 'listing': {'id': 'lst_011', 'title': 'Low-Rise Cargo Pants — Khaki', 'description': 'Y2K era low-rise cargo pants. Lots of pockets. Khaki color, slightly distressed at the hems. Great for layering with a long tee.', 'category': 'bottoms', 'style_tags': ['y2k', 'cargo', '2000s', 'streetwear'], 'size': 'W29', 'condition': 'fair', 'price': 27.0, 'colors': ['khaki', 'tan'], 'brand': None, 'platform': 'poshmark'}}]
+
+**suggest_outfit**
+
 ```
 $ python -c "from tools import suggest_outfit; from utils.data_loader import get_example_wardrobe, load_listings; print(suggest_outfit(load_listings()[0], get_example_wardrobe()))"
 
@@ -133,6 +150,9 @@ Pair the new Vintage Levi's 501 Jeans (New Item) with the white ribbed tank top 
 
 **Outfit 2: Edge & Denim**
 Combine the Vintage Levi's 501 Jeans (New Item) with the black cropped zip hoodie (w_005) and the vintage black denim jacket (w_006) for a double-denim moment. Ground the outfit with black combat boots (w_008) and the brown leather belt (w_009).
+
+**create_fit_card**
+
 ```
 $ python -c "from tools import create_fit_card; from utils.data_loader import load_listings; print(create_fit_card('jeans and white sneakers', load_listings()[0]))"
 

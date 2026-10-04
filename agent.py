@@ -150,28 +150,14 @@ def run_agent(query: str, wardrobe: dict) -> dict:
 
         # Step 3: Search Listings
         # Extract parsed components for search_listings(query, size_filter, max_price)
-        search_query = parsed["description"]
-        size_filter = parsed["size"]
-        max_price = parsed["max_price"]
+        search_query = parsed.get("description")
+        size_filter = parsed.get("size")
+        max_price = parsed.get("max_price")
 
         if not search_query:
             session["error"] = (
                 f"No items matching search for empty query"
                 f"\nPlease enter a non-empty search requirement"
-            )
-            return session["error"]
-        
-        if not size_filter:
-            session["error"] = (
-                f"No size matching search for empty size"
-                f"\nPlease enter a non-empty clothing tops, bottoms, shoe, or accessory size (one size for accessories)"
-            )
-            return session["error"]
-        
-        if not max_price:
-            session["error"] = (
-                f"No matching search for items with no cost"
-                f"\nPlease enter a non-zero price to search for e.g. under $30 or over $40"
             )
             return session["error"]
 
