@@ -18,7 +18,7 @@ Given a query that matches at least one listing, the agent completes all three t
 
 **Why this target:**
 
-I am confident in my keyword matchings since all keywords in the listings dicts fields for `description`, `title`, `style_tags`, and `colors`, are scanned and scored with BM25 + IDF weights. Additionally, I have a relevance gate for item sizes with an impacted smaller score for partial matches or misses. However, should `SEARCH_RESULT_LIMIT` in `config.py` be too low then there may be a case where it might score wrong. When there's less than 3 keywords in the provided search some items can be scored low by mistake. Additionally, the agent may terminate at a tool if the query price and query size is too low as well.
+I am confident in my keyword matches and logic for the agent to complete 3 tool calls. All of the keywords in the listings dicts fields for `description`, `title`, `style_tags`, and `colors`, are scanned and scored with BM25 + IDF weights. Additionally, I have a relevance gate for item sizes with an impacted smaller score for partial matches or misses. However, should `SEARCH_RESULT_LIMIT` in `config.py` be too low or if there are too many tokens then there may be cases where scores that should be correct instead become wrong. The amount of keywords in the provided search can change scoring of items. Additionally, the agent may terminate in `search_listings` if the query price and query size is too low as well.
 <!-- Why 4 of 5 and not 5 of 5? Something about your search, probably —
      "my search is a plain keyword match and some phrasings will miss" is a real answer. -->
 
@@ -36,7 +36,7 @@ The file `agent.py` has a `run_agent` method that guards and ensures listings is
 
 ---
 
-## 3. Something about state
+## 3. The session item fields should match the tool results
 
 Given a query when `search_listings` ends, the listing should verify that `session["selected_item"]` has the same metadata fields for `id`, `title`, `price`, and `size` after the session is set. The check should pass 3 of 5 tries.
 
@@ -49,6 +49,8 @@ Given a query when `search_listings` ends, the listing should verify that `sessi
 
 
 **Why this target:**
+
+I chose 3 of 5 tries since `search_listings` results are still passed to an AI model, therefore, the results in the session can change after being passed or after it uses them to generate another result like in the `suggest_outfits` tool.
 
 This target accounts for AI hallucinations where a typo or mistake is made. The target might miss in cases where `search_listings` returns an empty string as well. The target ensures that the state is unchanged by an LLM hallucination by checking that it didn't make up a new listing since AI hallucinations are not preventable when limits are reached then the agent should fail eventually.
 
@@ -68,6 +70,7 @@ Given a query the fit card shouldn't repeat the same caption or in other tools t
 
 
 **Why this target:**
+I picked 3 of 5 since AI noticeably hallucinates and the AI model will forget or lose some details as it is generating the results.
 
 AI is known to repeat hallucinations so criteria 4 ensures the hallucinations are kept to a minimum. In the `create_fit_card` tool the AI has more possibilities of it's results being non-creative without having varied details in prompts as well. There are also 3 tools used in 1 try so hallucinations have a increased chance of occuring.
 
@@ -87,6 +90,8 @@ Given a query the `search_listings` tool should accurately find the size of an i
 
 
 **Why this target:**
+
+I picked 3 of 5 since my search will account for keyword sizes described in the description.
 
 The dataset has a good pattern where some clauses can be separated on common phrases such as "says size x but fits like y". This can be indexed. In cases where the size fits "good enough" in the description the cases won't have the `but` keyword or incorrect tags which is also indexable but harder to measure. False positives can occur when a different sizing phrase is used or when the keywords `small`, `medium`, `large`, `extra large`, or `oversized` are used out of the sizing context which should be accounted for in data sets.
 
