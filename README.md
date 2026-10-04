@@ -93,13 +93,13 @@ This project allows user to inquire on clothes from a set of item listings of di
      The grader checks your code against what you claim here, so the file and
      function have to be real. -->
 
-**Branch rule:**
+**Branch rule:** If `search_listings` in `tools.py` returns an empty list a message is given to session and it stops with suggestions to add a price cap, search terms, and use better sizes. Otherwise take first result and go to suggest_outfit.
 
-**Where it lives:** `agent.py::run_agent`
+**Where it lives:** `tools.py::search_listings`
 
-**How the query is parsed:** <!-- regex, string splitting, or asking the model — say which -->
+**How the query is parsed:** <!-- regex, string splitting, or asking the model — say which -->The query is parsed using regular expressions with "under", "below", "max", and common sizes (xxs, xs, s, m, l, xl, xxl, w) are extracted. The `description` variable replaces those two variables with empty strings and sets the remainder to `description`.
 
-**What moves through the session:** <!-- which fields, in what order -->
+**What moves through the session:** <!-- which fields, in what order -->The output of `search_listings` is returned as a dictionary with the fields `id`:str, `score`:float, `price`:str, and `listing`:dict. This is given to session["search_results"] which gives the first listing to the function `suggest_outfits` in session["outfit_suggestion"]. The `session["parsed"]` item also has a branch that terminates when the parsed query in `agent.py`'s `parse_query` function is.
 
 ---
 
